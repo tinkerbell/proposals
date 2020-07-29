@@ -7,25 +7,26 @@ authors: Gianluca Arbezzano <gianarb92@gmail.com>
 
 ## Summary
 
-_(In between parenthesis I will write what the section is for as a description.
-Summary contains a short summary of the RFD. Ideally it has to be useful for
-people who do not know what the RFD is to evaluate if they can be helpful or
-not, and what is the discussion about)_
+_(**These notes in parenthesis describe the purpose of each section.** The
+summary contains a short summary of the RFD. Ideally it has to be useful for
+people who do not know what problem the RFD is attempting to solve. The summary
+gives readers context and helps them evaluate if this is a topic that interests
+or affects them.)_
 
 This is the first Request For Discussion (RFD) and it covers:
 
-*   What they are and why we need them
-*   How to write one
-*   When to avoid a RFD
-*   Lifecycle
+* What RFDs are and why we need them
+* How to write an RFD
+* When to avoid a RFD
+* Lifecycle of an RFD
 
 Rename the [proposal](https://github.com/tinkerbell/proposals) repository to RFD.
 
-## Goals and not Goals
+## Goals and non-Goals
 
-_(Goals and not Goals contains two bullet point sections that briefly describe
-the end goal for what you are discussion and what it is not covered from this
-discussion)_
+_(Goals and non-Goals contains two bullet point sections that briefly describe
+the end goals of what is being discussed and what is out-of-scope or otherwise
+not open for discussion.)_
 
 Goals
 
@@ -33,34 +34,34 @@ Goals
 * Share the RFD lifecycle
 * Be the first RFD for the project
 
-Not Goals
+Non-Goals
 
-* Off all the automation, scripts and bots described as part of the RFD
+* Offering all of the automation, scripts and bots described as part of the RFD
   lifecycle
-* Convert the already open PR against the
+* Converting the already open PR against the
     [proposal](https://github.com/tinkerbell/proposals) repo to this new format
 
 ## Content
 
-_(the main section, it contains the core of the discussion, the design you are
-proposing, the new feature you are asking for and how it will be implemented)_
+_(This is the main section. It contains the core of the discussion, the design
+you are proposing, the changes this imposes and the new features it provides.
+This should include a high-level overview of how this proposal can be
+implemented.)_
 
-### Why a RFD is needed and how it looks like
+### Why a RFD is needed and what it looks like
 
-The process of taking a decision about how and why a feature or a piece of code
-has to be written or not, and how is an important part of the engineering
-process.
+Discussing and deciding how and why a feature or a piece of code should or
+should not be written is an important part of the engineering process.
 
-As an open source project Tinkerbell needs to have a public place where
+As an open source project, Tinkerbell needs to have a public place where
 community members, contributors can share their ideas in detail, asking for
 help, feedback and more in general to spot problems addressable as early as
 possible.
 
-A maintainer can ask contributors to write a RFD in order to open a discussion
-about a feature that looks trivial, helping contributors to sit
-down and think about the design of the request or the code they will build. It
-is a way to translate Slack discussions to something that won’t get lost for
-example.
+A maintainer can ask contributors to write an RFD in order to open a discussion
+about a feature that looks trivial, helping contributors to sit down and think
+about the design of the request or the code they will build. It is a way to
+translate Slack discussions to something that won’t get lost for example.
 
 Currently, we have a repo called
 [proposal](https://github.com/tinkerbell/proposals) that I would like to rename
@@ -68,15 +69,14 @@ to RFD. Every RFD will have its own directory with a markdown file inside.
 
 ### Metadata
 
-The RFD is written in markdown and it has a little metadata to place as header in
-the RFD file:
+The RFD is written in markdown and includes metadata in the header of the file:
 
 * `ID`: identifies the RFD
 * `Title`: title of the RFD
 * `Status`: description of the current state for the RFD
 * `Authors`: in the format of a list of `Name <email@emai.com>`
 
-Here a complete example:
+Here is a complete example:
 
 ```yaml
 ---
@@ -92,13 +92,14 @@ authors: Gianluca Arbezzano <gianarb92@gmail.com>
 
 I don’t want to rewrite the lifecycle here because the one in use by [Oxide
 Computer](https://oxide.computer/blog/rfd-1-requests-for-discussion/#rfd-life-cycle)
-looks familiar and functional for our purpose. They wrote the lifecycle in
-detail and for now we will follow it as it is.
+looks familiar and is functional for our purpose. They wrote the lifecycle in
+detail and, for now, we will follow it as it is.
 
 What follows here is copy/pasted from ["RFD 1 Requests for
 Discussion"](https://oxide.computer/blog/rfd-1-requests-for-discussion/) and all
-the credits goes to [Oxide Computer](https://oxide.computer).
+the credit goes to [Oxide Computer](https://oxide.computer).
 
+~~~markdown
 
 ### RFD Metadata and State
 
@@ -341,17 +342,17 @@ be moved to be committed. This state is essentially no different from published,
 but represents ideas that have been more fully developed. While discussion on
 committed RFDs is permitted (and changes allowed), they would be expected to be
 infrequent.
-
+~~~
 
 _end of copy/paste from ["RFD 1 Requests for
 Discussion"](https://oxide.computer/blog/rfd-1-requests-for-discussion/)._
 
 ### Table of contents
 
-This is how the table of contents for a RFD looks like:
+This is what the table of contents for a RFD should look like:
 
 1. Summary
-2. Goals and not goals
+2. Goals and non-goals
 3. Content
 4. System-context-diagram
 5. APIs
@@ -360,37 +361,40 @@ This is how the table of contents for a RFD looks like:
 ### Tooling
 
 I would like to get a generated version of the RFD in markdown with a table in
-the homepage listing all of them plus their status to quickly identify those
-open for discussion.
+the homepage listing all of the RFDs with their status. This will allow us to
+quickly identify those open for discussion.
 
-###  Credits, links and inspiration
+### Credits, links and inspiration
 
-*   Previously designed RFD workflows that are not publicly available
-*   [Kubernetes
+* Previously designed RFD workflows that are not publicly available
+* [Kubernetes
     KEPS](https://github.com/kubernetes/enhancements/tree/master/keps)
-*   [https://www.industrialempathy.com/posts/design-docs-at-google/](https://www.industrialempathy.com/posts/design-docs-at-google/)
-*   [https://oxide.computer/blog/rfd-1-requests-for-discussion/#rfd-metadata-and-state](https://oxide.computer/blog/rfd-1-requests-for-discussion/#rfd-metadata-and-state)
-*   [https://github.com/crossplane/crossplane/blob/master/design/README.md](https://github.com/crossplane/crossplane/blob/master/design/README.md)
+* [https://www.industrialempathy.com/posts/design-docs-at-google/](https://www.industrialempathy.com/posts/design-docs-at-google/)
+* [https://oxide.computer/blog/rfd-1-requests-for-discussion/#rfd-metadata-and-state](https://oxide.computer/blog/rfd-1-requests-for-discussion/#rfd-metadata-and-state)
+* [https://github.com/crossplane/crossplane/blob/master/design/README.md](https://github.com/crossplane/crossplane/blob/master/design/README.md)
+* [https://github.com/joyent/rfd](https://github.com/joyent/rfd)
 
 ### When you can avoid a RFD
 
-When the community is satisfied with the discussions happening on other channels
-like Slack, voice, in a pull request or issue. Usually it happens for small
-fixes or features.
+RFDs are not necessary when small fixes are made or minor features are
+introduced.  An RFD is not necessary in when the community is satisfied with the
+discussions happening in other channels like Slack, voice, or in pull requests
+and issues.
 
 ## System-context-diagram
 
-_(how this feature or discussion takes place in a big picture. Tinkerbell but
-almost all the software nowadays have a high interaction with other part of the
-stack, a system context diagram helps the reader to figure out where the topic
-of the discussion plays a role)_
+_(How does this feature or discussion fit into the big picture? Tinkerbell, like
+many other modern software stacks, have a high level of interaction between
+component, including external components. A system context diagram helps the
+reader visually understand how this RFD plays a role.)_
 
 ## APIs
 
-_(If the discussion is about API change or a new API you can describe it here
-with JSON, CURL or GRPC Interface)_
-
+_(Describe any API changes, including new APIs, here with JSON, YAML, `curl`, or
+GRPC Interface examples.)_
 
 ## Alternatives
 
-_(if you have looked at alternatives that didn’t fit you can list them here)_
+_(List or describe any alternatives considered that didn’t fit this RFD. This
+could be links to similar services or detailed explorations that were abandoned
+in favor of the proposed RFD.)_
