@@ -16,9 +16,9 @@ or affects them.)_
 This is the first Request For Discussion (RFD) and it covers:
 
 * What RFDs are and why we need them
-* How to write an RFD
+* How to write a RFD
 * When to avoid a RFD
-* Lifecycle of an RFD
+* Lifecycle of a RFD
 
 Rename the [proposal](https://github.com/tinkerbell/proposals) repository to RFD.
 
@@ -54,14 +54,13 @@ Discussing and deciding how and why a feature or a piece of code should or
 should not be written is an important part of the engineering process.
 
 As an open source project, Tinkerbell needs to have a public place where
-community members, contributors can share their ideas in detail, asking for
-help, feedback and more in general to spot problems addressable as early as
-possible.
+community members and contributors can share their ideas in detail and can request 
+help, feedback and give others the chance to spot problems early.
 
 A maintainer can ask contributors to write an RFD in order to open a discussion
-about a feature that looks trivial, helping contributors to sit down and think
-about the design of the request or the code they will build. It is a way to
-translate Slack discussions to something that won’t get lost for example.
+about a feature, helping contributors to sit down and think about the design of 
+the request or the code they will build. It is also a way to translate Slack 
+discussions to something that won’t get lost.
 
 Currently, we have a repo called
 [proposal](https://github.com/tinkerbell/proposals) that I would like to rename
