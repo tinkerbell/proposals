@@ -1,26 +1,26 @@
 ---
 id: 0001
-title: Request for discussion HOWTO
-status: discussion
+title: How to write a Proposal
+status: published
 authors: Gianluca Arbezzano <gianarb92@gmail.com>
 ---
 
 ## Summary
 
 _(**These notes in parenthesis describe the purpose of each section.** The
-summary contains a short summary of the RFD. Ideally it has to be useful for
-people who do not know what problem the RFD is attempting to solve. The summary
+summary contains a short summary of the Proposal. Ideally it has to be useful for
+people who do not know what problem the Proposal is attempting to solve. The summary
 gives readers context and helps them evaluate if this is a topic that interests
 or affects them.)_
 
-This is the first Request For Discussion (RFD) and it covers:
+This is the first Proposal and it covers:
 
-* What RFDs are and why we need them
-* How to write an RFD
-* When to avoid a RFD
-* Lifecycle of an RFD
+* What Proposals are and why we need them
+* How to write an Proposal
+* When to avoid a Proposal
+* Lifecycle of an Proposal
 
-Rename the [proposal](https://github.com/tinkerbell/proposals) repository to RFD.
+Rename the [proposal](https://github.com/tinkerbell/proposals) repository to Proposal.
 
 ## Goals and non-Goals
 
@@ -30,13 +30,13 @@ not open for discussion.)_
 
 Goals
 
-* Explain what a RFD is, how and when to use it
-* Share the RFD lifecycle
-* Be the first RFD for the project
+* Explain what a Proposal is, how and when to use it
+* Share the Proposal lifecycle
+* Be the first Proposal for the project
 
 Non-Goals
 
-* Offering all of the automation, scripts and bots described as part of the RFD
+* Offering all of the automation, scripts and bots described as part of the Proposal
   lifecycle
 * Converting the already open PR against the
     [proposal](https://github.com/tinkerbell/proposals) repo to this new format
@@ -48,7 +48,7 @@ you are proposing, the changes this imposes and the new features it provides.
 This should include a high-level overview of how this proposal can be
 implemented.)_
 
-### Why a RFD is needed and what it looks like
+### Why a Proposal is needed and what it looks like
 
 Discussing and deciding how and why a feature or a piece of code should or
 should not be written is an important part of the engineering process.
@@ -58,22 +58,22 @@ community members, contributors can share their ideas in detail, asking for
 help, feedback and more in general to spot problems addressable as early as
 possible.
 
-A maintainer can ask contributors to write an RFD in order to open a discussion
+A maintainer can ask contributors to write an Proposal in order to open a discussion
 about a feature that looks trivial, helping contributors to sit down and think
 about the design of the request or the code they will build. It is a way to
 translate Slack discussions to something that won’t get lost for example.
 
 Currently, we have a repo called
 [proposal](https://github.com/tinkerbell/proposals) that I would like to rename
-to RFD. Every RFD will have its own directory with a markdown file inside.
+to Proposal. Every Proposal will have its own directory with a markdown file inside.
 
 ### Metadata
 
-The RFD is written in markdown and includes metadata in the header of the file:
+The Proposal is written in markdown and includes metadata in the header of the file:
 
-* `ID`: identifies the RFD
-* `Title`: title of the RFD
-* `Status`: description of the current state for the RFD
+* `ID`: identifies the Proposal
+* `Title`: title of the Proposal
+* `Status`: description of the current state for the Proposal
 * `Authors`: in the format of a list of `Name <email@emai.com>`
 
 Here is a complete example:
@@ -106,7 +106,7 @@ the credit goes to [Oxide Computer](https://oxide.computer).
 At the start of every RFD document, we'd like to include a brief amount of metadata. The metadata format is based on the python-markdown2 metadata format. It'd look like:
 
 ---
-authors: Andy Smith <andy@example.computer>, Neal Jones <neal@example.computer>
+authors: Jenny Smith <jenny@example.computer>, Neal Jones <neal@example.computer>
 state: prediscussion
 ---
 We keep track of three pieces of metadata:
@@ -344,12 +344,12 @@ committed RFDs is permitted (and changes allowed), they would be expected to be
 infrequent.
 ~~~
 
-_end of copy/paste from ["RFD 1 Requests for
+_end of copy/paste from ["Proposal 1 Requests for
 Discussion"](https://oxide.computer/blog/rfd-1-requests-for-discussion/)._
 
 ### Table of contents
 
-This is what the table of contents for a RFD should look like:
+This is what the table of contents for a Proposal should look like:
 
 1. Summary
 2. Goals and non-goals
@@ -360,13 +360,13 @@ This is what the table of contents for a RFD should look like:
 
 ### Tooling
 
-I would like to get a generated version of the RFD in markdown with a table in
-the homepage listing all of the RFDs with their status. This will allow us to
+I would like to get a generated version of the Proposal in markdown with a table in
+the homepage listing all of the Proposals with their status. This will allow us to
 quickly identify those open for discussion.
 
 ### Credits, links and inspiration
 
-* Previously designed RFD workflows that are not publicly available
+* Previously designed Proposal workflows that are not publicly available
 * [Kubernetes
     KEPS](https://github.com/kubernetes/enhancements/tree/master/keps)
 * [https://www.industrialempathy.com/posts/design-docs-at-google/](https://www.industrialempathy.com/posts/design-docs-at-google/)
@@ -374,10 +374,10 @@ quickly identify those open for discussion.
 * [https://github.com/crossplane/crossplane/blob/master/design/README.md](https://github.com/crossplane/crossplane/blob/master/design/README.md)
 * [https://github.com/joyent/rfd](https://github.com/joyent/rfd)
 
-### When you can avoid a RFD
+### When you can avoid a Proposal
 
-RFDs are not necessary when small fixes are made or minor features are
-introduced.  An RFD is not necessary in when the community is satisfied with the
+Proposals are not necessary when small fixes are made or minor features are
+introduced.  An Proposal is not necessary in when the community is satisfied with the
 discussions happening in other channels like Slack, voice, or in pull requests
 and issues.
 
@@ -386,7 +386,7 @@ and issues.
 _(How does this feature or discussion fit into the big picture? Tinkerbell, like
 many other modern software stacks, have a high level of interaction between
 component, including external components. A system context diagram helps the
-reader visually understand how this RFD plays a role.)_
+reader visually understand how this Proposal plays a role.)_
 
 ## APIs
 
@@ -395,6 +395,6 @@ GRPC Interface examples.)_
 
 ## Alternatives
 
-_(List or describe any alternatives considered that didn’t fit this RFD. This
+_(List or describe any alternatives considered that didn’t fit this Proposal. This
 could be links to similar services or detailed explorations that were abandoned
-in favor of the proposed RFD.)_
+in favor of the proposed Proposal.)_
