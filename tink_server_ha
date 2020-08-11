@@ -1,6 +1,0 @@
-Fault tolerant provisioner:
-problem: Currently the provisioner runs only on single machine. If that machine goes down, tinkerbell as a setup would become unresponsive and worker machines can go into undesirable state.
-proposal:
-solution:
-a) Setup should be in HA state. provisioner should have more than one instance, could be in active-passive. State of provisioner should be consistent and should also ensure availability.
-b) provisioner server should be cluster of all services (ex, hegel, boots) wrapped in a private network. Worker (..etc) connects to the proxy exposed on provisioner cluster to connect to.
