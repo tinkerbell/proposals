@@ -1,7 +1,7 @@
 ---
 id: 0005
 title: tink-cli binary
-status: ideation
+status: abandoned 
 authors: chitrabasu khare <chitrabasukhare89@gmail.com>
 ---
 
@@ -27,7 +27,7 @@ Tinkerbell should have tink-cli binary to execute tink-cli commands from outside
 
 ## Progress:
 
-As of now tink-cli commands can only be executed from inside docker container or using docker exec utility.
+This proposal will be taken forward with PR https://github.com/tinkerbell/proposals/pull/5
 
 ## System Context Diagram
 ![tink-cli HLD](tink-cli_HLD.png)
