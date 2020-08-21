@@ -1,6 +1,6 @@
 ---
-id: 9999
-title: Place the RFC title here
+id: ID
+title: TITLE
 status: ideation
 authors: Name <email@email.com>
 ---
