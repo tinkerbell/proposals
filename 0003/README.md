@@ -1,7 +1,7 @@
 ---
 id: 0003
 title: Centralized Logging for Tinkerbell microservices.
-status: discussion
+status: published
 authors: Chitrabasu Khare <chitrabasukhare89@gmail.com>
 ---
 
