@@ -1,6 +1,6 @@
 ---
 id: 0007
-title: PlaywithTink and the user persona
+title: Sandbox and the user persona
 status: discussion
 authors: Gianluca Arbezzano <gianarb92@gmail.com>
 ---
@@ -36,7 +36,7 @@ Non-Goals:
 ## Content
 
 I made a prototype
-[gianarb/playwithtink](https://github.com/gianab/playwithtink).
+[gianarb/sandbox](https://github.com/gianab/playwithtink).
 
 For what concerns this proposal I would like to highlight two different
 personas:
@@ -67,13 +67,13 @@ have in tink at the moment because:
 5. I think we will learn from having two different solutions for contributors
    and users those will evolve by themself as soon as they will be by their own.
 
-We can have a new repository called: `tinkerbell/playwithtink` it will contain
+We can have a new repository called: `tinkerbell/sandbox` it will contain
 a setup.sh copy/paste or equivalent script and a `docker-compose` file like the
 one we serve in `tinkerbell/tink` but with pinned docker images.
 
 We can replace or re-write setup guides similar to the one we already have, but
 they won't checkout the `tinkerbell/tink` repository, they will clone
-`tinkerbell/playwithtink` (as a release if we want extra safety) in this way the
+`tinkerbell/sandbox` (as a release if we want extra safety) in this way the
 version in use will stay the same no matter what happens in the underline
 repositories.
 
@@ -86,10 +86,10 @@ baseline for the tinkerbell.org documentation:
 * https://tinkerbell.org/docs/setup/packet-with-terraform/
 * https://tinkerbell.org/docs/setup/local-with-vagrant/
 
-`playwithtink` works in the same way but other than cloning the repo `tink`
-users will clone `playwithtink`.
+`sandbox` works in the same way but other than cloning the repo `tink`
+users will clone `sandbox`.
 
-### Playwithtink and tink/deploy are similar
+### sandbox and tink/deploy are similar
 
 Yes they are. For now. There is a bit of friction today when changing the
 content of `tink/deploy` as a contributor/maintainer because we know users that
@@ -108,6 +108,6 @@ We need a maintainer for this repository and also somebody that can actually
 make it to happen.
 
 The reponsability for the maintainers will be to bump versions up and to tag
-playwithtink releases that users can refer to when trying tinkerbell and when
+sandbox releases that users can refer to when trying tinkerbell and when
 opening a PR. From a release we should be able to identify what they run and
 replicate their issues quickly.
