@@ -91,6 +91,8 @@ Example with rsyslog
 
 [Docker-Compose file Changes](docker-compose.yml)
 
+[User Guide](user_guide.md)
+
 ## Future roadmap:
 
 As a part of roadmap implementation, certain changes in the existing framework would be required to bring below proposals onboard.
