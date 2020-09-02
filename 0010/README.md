@@ -1,7 +1,7 @@
 ---
 id: 0010
 title: Workflow behavior for on_timeout and on_failure
-status: discussion 
+status: abandoned 
 authors: Gaurav Gahlot <gauravgahlot0107@gmail.com>
 ---
 
