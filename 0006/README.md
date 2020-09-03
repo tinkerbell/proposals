@@ -15,14 +15,41 @@ This RFD proposes to have a resilient framework for Tinkerbell Provisioner.
 - Bring resiliency in Tinkerbell. 
 - Tinkerbell as a setup should be highly available.
 
+
 ## Content: 
 
+- In the current implementation, during workflow execution, if the connection between provisioner and worker breaks then 
+	- the workflow execution fails.
+	- provisioner is in a state where can microservices not be accessed.
+	- tink-cli also doesn't work.
+	- workflow state can not be recovered.
+	- provisioner as of now also does not recover.
+	- Tinkerbell as a bare metal server manager also fails. 
+- Above points entails Tinkerbell is not reliable at this state. 
+- The connection between provisioner and worker machine can break if (we will assume workflow execution is in the process) 
+	- provisioner is rebooted.
+	- Network failure, resulting in communication drop between provisioner and worker machines.
+	- system or hardware failure of provisioner machine due to process, memory etc.
+	- Fire cut, Rat cut (least possible scenarios) 
+- On the occurrence above events, Tinkerbell services will not be able to recover and all the data or workflow execution will be lost. 
 - We would like to have a framework where Tinkerbell as a solution is fault-tolerant.
-- All most all of the core services are managed by provisioner. So, it will be good to have a framework where provisioner is highly available.
-- It can be a multinode provisioner solution with active-active or active-passive implementation.
+- Tinkerbell as a server manager and its core services are able to recover from failure with eventual consistency. 
+- Also, most of the core services are managed by provisioner. So, it will be good to have a framework where provisioner is highly available. It can be a multinode provisioner solution with active-active or active-passive implementation.
+- Let's take an example of 2 Node cluster:
+	- Active-Active:
+	  - All the services running on both the nodes and both the nodes have active service.
+	  - Nodes would need logic to sync among themselves. 
+	  - Design for communication between prov. and the worker would be needed. 
+	  - How the request would be routed from worker to prov. 
+	  - How prov. will send a reply to the worker.
+	- Active-passive.
+	  - All services running on both the node but only one node have active service.
+	  - Nodes would need logic to sync among themselves. 
+	  - Communication between be between active prov. and the worker. Passive prov. can be synced eventually. 
+
 - The Provisioner services should be partition tolerant during network failures or communication failure between provisioner nodes.
-- Additional logic would be required to sync services running inside provisioner nodes.
-- A separate machine to place an L3/L7 Load balancer or proxy would be required.
+- Additional logic would be required to sync services running inside provisioner nodes as mentioned above.
+- A separate machine to place an L3/L7 Load balancer or proxy would be required. This feature is required communication between active-active multi-node provisioner and the worker node.
 
 
 ## Problems and Suggestions:
