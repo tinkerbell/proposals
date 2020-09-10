@@ -1,7 +1,7 @@
 ---
 id: 0011
-title: how to announce a braking change for Tinkerbell
-status: discussion
+title: how to announce a breaking change for Tinkerbell
+status: published
 authors: Gianluca Arbezzano <gianarb92@gmail.com>
 ---
 
