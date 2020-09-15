@@ -9,7 +9,7 @@ authors: Gaurav Gahlot <gauravgahlot0107@gmail.com>, Gianluca Arbezzano <gianarb
 
 In the current model, the whole tinkerbell stack works on a _request-response_ model.
 Instead of waiting for explicit requests or responses, we want the components to watch for certain events and act accordingly.
-This introduces extensibility and allows users to plug-and- play with tink.
+This introduces extensibility and allows users to plug-and-play with tink.
 
 ## Goals and no-Goals
 
@@ -27,7 +27,7 @@ No-Goal:
 ## Content
 
 Not everything can be a Tink responsibility.
-Events are a scalable way to build an extendible system.
+Events are a scalable way to build an extensible system.
 This allows different components to tap-in to the event streams and leverage the extension points.
 For example, [tinkerbell/portal](https://github.com/tinkerbell/portal/) can watch for workflow events and present them on the UI.
 Events are good for troubleshooting purpose because they help to build context.
@@ -90,6 +90,23 @@ The resource clients should have a `Watch` function that will stream events for 
 ```
 Watch(ctx context.Context, in EventWatchRequest)
 ```
+
+## Implementation Details
+
+### PostgreSQL Notifications
+
+Tinkerbell uses PostgreSQL as the data store.
+Postgres provides [notifications](https://www.postgresql.org/docs/10/sql-notify.html) which can be used to watch the changes in a table as they occur.
+Here changes refer to Postgres events - INSERT, UPDATE, and DELETE.
+
+NOTIFY provides a simple interprocess communication mechanism for a collection of processes accessing the same PostgreSQL database.
+A payload string can be sent along with the notification, and higher-level mechanisms for passing structured data can be built by using tables in the database to pass additional data from notifier to listener(s).
+
+We have added workflow notifications as an example:
+
+- [workflow-notifications.sql](workflow-notifications.sql): SQL script to setup notifications for workflow table
+- [listener.go](listener.go) - a listener watching for the notifications
+- [event.log](event.log) - log for INSERT, UPDATE and DELETE notifications
 
 ## The API
 
@@ -161,6 +178,23 @@ All the clients like `HardwareClient` will be using `EventClient` under the hood
 
 There is no logic to keep track of which events are fired or sent to a consumer.
 Every consumer when it connects to a stream of events will specify how old the events returned should be (by default 5m).
+In order to make it possible, all the events will be stored in the Events table.
+The Events table will (roughly) have the following structure:
+
+```
+tinkerbell=# \d events
+                           Table "public.events"
+    Column     |           Type           | Collation | Nullable | Default
+---------------+--------------------------+-----------+----------+---------
+ id            | uuid                     |           | not null |
+ resource_id   | uuid                     |           | not null |
+ resource_type | integer                  |           | not null |
+ event_type    | integer                  |           | not null |
+ created_at    | timestamp with time zone |           |          |
+ data          | jsonb                    |           |          |
+Indexes:
+    "events_pkey" PRIMARY KEY, btree (id)
+```
 
 The tink-server will only be responsible for generating the events.
 It will not contain any business logic that needs to be executed as an event occurs.
@@ -171,7 +205,7 @@ If a client fails half way the client gets the same events again and repeat the 
 ```
 informer := client.WorkflowClient.Watch(&request.WatchRequest {
 			EventType: "WORKFLOW_TIMEOUT"
-		}, 
+		},
 		func(e Event) {
 			// Do your best. You can notify via Slack. Or start a different workflow.
 		})
@@ -197,4 +231,3 @@ The alternative are:
 
 - We can tight Tinkerbell to a streaming platform or a queuing system like Kafka, RabbitMQ
 - We can build a queue in Tinkerbell itself
-````
