@@ -7,9 +7,14 @@ authors: Gaurav Gahlot <gauravgahlot0107@gmail.com>, Gianluca Arbezzano <gianarb
 
 ## Summary
 
-In the current model, the whole tinkerbell stack works on a _request-response_ model.
-Instead of waiting for explicit requests or responses, we want the components to watch for certain events and act accordingly.
-This introduces extensibility and allows users to plug-and-play with tink.
+An event system will enable an ecosystem of automation tools and operator to better interact with the actions happening in Tink.
+
+Those actions that I will reference with as `events` are:
+
+1. Notification about when a new resource such as hardware, template or workflow gets created.
+2. A notification about the mutation of a workflow. A workflow can `start`, `succeed`, `timeout`, or `fail`.
+
+This introduces extensibility and allows users to plug-and-play with tink without having to modify or recompile the codebase.
 
 ## Goals and no-Goals
 
@@ -31,16 +36,21 @@ Events are a scalable way to build an extensible system.
 This allows different components to tap-in to the event streams and leverage the extension points.
 For example, [tinkerbell/portal](https://github.com/tinkerbell/portal/) can watch for workflow events and present them on the UI.
 Events are good for troubleshooting purpose because they help to build context.
-Feature requests we received that can be implemented using events are: phone home, ontimeout and so on
+Feature requests we received that can be implemented using events are:
+
+* phone home
+* Business logic that has to run when a workflow reaches a particular state, for example if it times out or if it fails. Business logic such as:
+    * Starting a recovery workflow
+    * Sending a message to a Slack channel
+* A feature requests we have open called [`GlobalTimeout`](https://github.com/tinkerbell/tink/issues/198#issuecomment-689507907) can be implemented using events.
 
 ### Current Model
 
-In the current model, the tink-server is loaded with tons of responsibilities.
-Responsibilities like - managing workflow state, handing overs actions to workers, logging the events, and others.
-We would like to delegate these responsibilities to respective smaller services/components.
-Instead of waiting for an explicit request, these components will be watching for certain events and act accordingly.
+We do not have a way to notify what Tink is doing to the outside. Clients has to
+continuously poll information from the gRPC API, and they have to figure out
+eventual differences.
 
-We have a client for each resource and it has a bunch of commands (CRUD).
+We have a client for each resource and it has a bunch of commands:
 
 ```
 // client for Template resource
@@ -87,9 +97,13 @@ type WorkflowSvcClient interface {
 The new model is inspired from Kubernetes.
 The resource clients should have a `Watch` function that will stream events for that particular resource.
 
+```go
+Watch(ctx context.Context, in EventWatchRequest, func(Event) {
+    // business logic
+})
 ```
-Watch(ctx context.Context, in EventWatchRequest)
-```
+
+The stream is a gRPC steam served by the currently available grpc-server.
 
 ## Implementation Details
 
@@ -156,12 +170,17 @@ Event - an event in tinkerbell space; and has the following structure:
 
 A new `EventClient` should be developed with the primitive required for the events at least `Watch`.
 At the beginning, only a `Watch` function is required but we think a natural evolution will be to serve a function that can be used from other components to fire events.
-Or maybe we can do a `Watch` and `Create` straight away.
 All the resource clients will have a `Watch` function that will stream events for that particular resource.
 
 ```
-Watch(ctx context.Context, in EventWatchRequest)
+Watch(ctx context.Context, in EventWatchRequest, func(e Event) {
+    // business logic
+})
 ```
+
+The `Watch` function runs in a consumer, outside from Tinkerbell. It can be your
+current application, a new one or any sort of automation. It is part of the
+gRPC specification and part of the tinkerbell `client`.
 
 Where the `EventWatchRequest` can take the following structure:
 
@@ -214,6 +233,14 @@ informer.Run(ctx)
 
 The `Watch` gRPC function needs to support filtering by a `ResourceType` and/or a `ResourceID` and/or an `EventType`.
 In case of the `Watch` is called by a resource client, for example HardwareClient, the `ResourceType` filter is fixed.
+
+### Future evolution
+
+Other than all the features that we can build using an event system, it will allow us to decouple the tink server even more. All of this is just speculation but ideally we can use this system to split the tink-server.
+
+We can build a `tink-provisioner`  for example, its responsibility is to bring a workflow to completion. Right now this logic is part of the tink-server. But with the new event system we can have decouple the logic in favor of a more pluggable approach.
+
+The `tink-server` will may become just an API gateway.
 
 ## System-context-diagram
 
