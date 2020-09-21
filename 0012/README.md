@@ -1,7 +1,7 @@
 ---
 id: 0012
 title: Event driven design for Tinkerbell
-status: ideation
+status: published
 authors: Gaurav Gahlot <gauravgahlot0107@gmail.com>, Gianluca Arbezzano <gianarb92@gmail.com>
 ---
 
