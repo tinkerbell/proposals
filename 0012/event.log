@@ -1,0 +1,49 @@
+{"level":"info","msg":"Received data from channel [workflow_changed] :","time":"2020-09-15T16:53:29+05:30"}
+{
+	"table": "workflow",
+	"action": "INSERT",
+	"data": {
+		"id": "69c8aa8f-956e-44af-8b76-5ef44f52a469",
+		"template": "4f012614-0186-4e22-b7cf-dc6ac2f0bc1a",
+		"devices": {
+			"device_1": "08:00:27:00:00:01"
+		},
+		"created_at": "2020-09-15T11:23:28.524472+00:00",
+		"updated_at": "2020-09-15T11:23:28.524472+00:00",
+		"deleted_at": null
+	}
+}
+
+{"level":"info","msg":"Received data from channel [workflow_changed] :","time":"2020-09-15T16:53:32+05:30"}
+{
+	"table": "workflow",
+	"action": "UPDATE",
+	"data": {
+		"id": "69c8aa8f-956e-44af-8b76-5ef44f52a469",
+		"template": "7284e61c-4974-4178-92ce-28fbe7c4df26",
+		"devices": {
+			"device_1": "08:00:27:00:00:01"
+		},
+		"created_at": "2020-09-15T11:23:28.524472+00:00",
+		"updated_at": "2020-09-15T11:23:32.214997+00:00",
+		"deleted_at": null
+	}
+}
+
+{"level":"info","msg":"Received data from channel [workflow_changed] :","time":"2020-09-15T16:53:35+05:30"}
+{
+	"table": "workflow",
+	"action": "DELETE",
+	"data": {
+		"id": "69c8aa8f-956e-44af-8b76-5ef44f52a469",
+		"template": "7284e61c-4974-4178-92ce-28fbe7c4df26",
+		"devices": {
+			"device_1": "08:00:27:00:00:01"
+		},
+		"created_at": "2020-09-15T11:23:28.524472+00:00",
+		"updated_at": "2020-09-15T11:23:32.214997+00:00",
+		"deleted_at": null
+	}
+}
+
+{"level":"info","msg":"Received no events for 90 seconds, checking connection","time":"2020-09-15T16:53:45+05:30"}
