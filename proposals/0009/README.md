@@ -1,7 +1,7 @@
 ---
 id: 0009
 title: Automated GitHub Action Runner
-status: ideation 
+status: ideation
 authors: David McKay <david@rawkode.com>
 ---
 
