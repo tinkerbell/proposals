@@ -1,7 +1,7 @@
 ---
 id: 0017
 title: Official Terraform provider for Tinkerbell
-status: discussion
+status: committed
 authors: Mateusz Gozdkek <mateusz@kinvolk.io>
 ---
 
