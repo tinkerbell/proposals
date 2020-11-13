@@ -1,7 +1,7 @@
 ---
 id: 0007
 title: Sandbox and the user persona
-status: published
+status: committed
 authors: Gianluca Arbezzano <gianarb92@gmail.com>
 ---
 
