@@ -1,0 +1,32 @@
+name: Generate and deploy proposals.tinkerbell.org
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        # required by deploy-to-github-pages action
+        # If you're using actions/checkout@v2 you must set persist-credentials
+        # to false in most cases for the deployment to work correctly.
+        persist-credentials: false
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.15.5'
+    - name: create out directory
+      run: mkdir out
+    - name: generate gh-pages
+      run: go run cmd/gen/main.go generate > out/index.html
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: out
+        CLEAN: true

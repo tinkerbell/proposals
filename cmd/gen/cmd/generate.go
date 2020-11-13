@@ -11,7 +11,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/yuin/goldmark"
-	"github.com/yuin/goldmark-meta"
+	meta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/parser"
 )
 
@@ -123,7 +123,7 @@ var t = `<!DOCTYPE html>
         <div>
             <ul>
                 {{ range $key, $value := . }}
-                <li>[<a href="https://github.com/tinkerbell/proposals/blob/master/{{ printf "%04d" $key }}/README.md">{{ printf "%04d" $key }}</a>]: {{ $value.Title }} - <b>status:{{ $value.Status }}</b> - authored by: {{ $value.Authors }}</li>
+                <li>[<a href="https://github.com/tinkerbell/proposals/blob/master/proposals/{{ printf "%04d" $key }}/README.md">{{ printf "%04d" $key }}</a>]: {{ $value.Title }} - <b>status:{{ $value.Status }}</b> - authored by: {{ $value.Authors }}</li>
                 {{ end }}
             </ul>
         </div>
