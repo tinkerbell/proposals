@@ -1,66 +1,58 @@
 ---
 id: 0019
 title: PBnJ.next
-status: ideation
+status: discussion
 authors: Jacob Weinstock <jweinstock@equinix.com>
 ---
 
 ## Summary
 
-PBnJ is in need of some updating to increase the maintainability,
-robustness and extensibility of the service. Under the hood PBnJ
-currently relies on `ipmitool` and `racadm`. This limits its hardware
-agnostic functionality. Scaling the service is also a concern at the
-moment as there is an in-memory task service for some endpoints.
+PBnJ is a Restful API service that is tasked with interacting with Base Management Controllers (BMC). Among many other things, these BMC's can power a machine on and off and set the next boot device to PXE, BIOS, disk, etc. As part of a Tinkerbell workflow execution, the first step is
 
-This proposal is intended to provide an option for how to increase the
-maintainability, robustness and extensibility of the service.  
+> On the first boot, the Worker is PXE booted
+
+This is where PBnJ could be called to set the next boot device to PXE and then called again to reboot the machine. PBnJ currently support BMC's that work with the `ipmitool` or `racadm` tool. The following vendors are known to work: Supermicro, Dell, ASRockRack.
+
+Currently, there is no mechanism in Tinkerbell to hook into this functionality (unfortunately, that mechanism is not what this proposal is about). The PBnJ service is only provided as a convenience for End-Users to hook into.
+
+PBnJ's two main Restful API endpoints are `/power` (on, off, cycle, etc) and `/boot` (set next boot device to pxe, bios, disk, etc). `/power` is an asynchronous endpoint that returns a task id for use with the `/task` endpoint. `/boot` is a synchronous endpoint.
+
+> An important note about BMCs. These devices are notoriously unreliable. Also, the IPMI protocol is the original protocol of these devices but not the only one available. There are other ways to interact with BMC's (depending on your vendor and BMC software); [redfish](https://www.dmtf.org/standards/redfish) (restful API), SSH, vendor specific Web APIs, gRPC, and others.
+
+This doc proposes the addition of all new asynchronous gRPC endpoints as a step towards deprecating the Restful endpoints. The implementation behind these gRPC endpoints will add the ability to make use of multiple interaction types (noted above) instead of just `ipmitool` and `racadm`. This will enable support for new device vendors.  
 
 ## Goals and not Goals
 
 Goals
 
-* Add more ways to interact with a BMC.
-* Add basic user management capabilities.
-* Add a gRPC interface.
-* Asynchronous operations.
-* Increase maintainability through updated code base.
-* Architecture that scales well.
-* Serve both http and gRPC protocols.
-* Support Tinkerbell centralize logging and events
+* Add asynchronous gRPC endpoints to mirror existing functionality
+* Add more ways to interact with a BMC behind the scenes
+* Add basic user management capabilities
+* Increase maintainability of code base
 
 Non-Goals
 
-* Provide all BMC functionality.
+* Deprecate existing Restful API
+* Expose all BMC functionality through PBnJ
 
 ## Content
 
-PBnJ.next will have all existing functionality available through a gRPC
-interface and would augment that functionality to be more robust and
+PBnJ.next will have all existing functionality available through gRPC
+endpoints and would augment that functionality to be more robust and
 support additional hardware vendors by implementing libraries like
 [bmclib](https://github.com/bmc-toolbox/bmclib),
 [gebn/bmc](https://github.com/gebn/bmc), and
 [gofish](https://github.com/stmcginnis/gofish). As standardization across
 hardware vendors is notoriously absent, an action against a BMC
 would be tried using all of these libraries until one is successful.
-The existing Http interface would be supported in the near term with eventual deprecation plans.
+The existing HTTP interface would be supported in the near term with eventual deprecation plans.
 
 ## Progress
 
 There is current work in progress
 [here](https://github.com/tinkerbell/pbnj/tree/pbnj.next).
 
-## System-context-diagram
-
-[example power on request flow/code architecture](./PBnJ-RequestFlow.png)
-
 ## APIs
 
 Proposed protocol buffers are available for review
 [here](https://github.com/tinkerbell/pbnj/tree/pbnj.next/api/v1).
-
-## Alternatives
-
-Keep the existing service as is and bolt on more functionality.
-This would still require a significant rewrite to make scalable
-and add new functionality.
