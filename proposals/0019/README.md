@@ -1,7 +1,7 @@
 ---
 id: 0019
 title: PBnJ.next
-status: discussion
+status: approved
 authors: Jacob Weinstock <jweinstock@equinix.com>
 ---
 
@@ -13,7 +13,7 @@ PBnJ is a Restful API service that is tasked with interacting with Base Manageme
 
 This is where PBnJ could be called to set the next boot device to PXE and then called again to reboot the machine. PBnJ currently support BMC's that work with the `ipmitool` or `racadm` tool. The following vendors are known to work: Supermicro, Dell, ASRockRack.
 
-Currently, there is no mechanism in Tinkerbell to hook into this functionality (unfortunately, that mechanism is not what this proposal is about). The PBnJ service is only provided as a convenience for End-Users to hook into.
+Currently, there is no mechanism in Tinkerbell to hook into this functionality (unfortunately, that mechanism is not what this proposal is about). The PBnJ service is only provided as a convenience for End-Users to hook into. While PBnJ does not currently have any integration into the Tinkerbell stack, it is very likely that it will be integrated into tink-server and be used to provide additional functionality to workflows in the future.
 
 PBnJ's two main Restful API endpoints are `/power` (on, off, cycle, etc) and `/boot` (set next boot device to pxe, bios, disk, etc). `/power` is an asynchronous endpoint that returns a task id for use with the `/task` endpoint. `/boot` is a synchronous endpoint.
 
