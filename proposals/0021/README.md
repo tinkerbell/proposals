@@ -1,21 +1,22 @@
 ---
 id: 0021
 title: The Tinkerbell Action Hub
-status: discussion
+status: accepted
 authors: Gianluca Arbezzano <ciao@gianarb.it>
 ---
 
 ## Summary
 
-This proposal is about having a hub for "certified" and reusable actions.
-It will run on `actions.tinkerbell.org` and I pictured it as a read only
-registry with a static site.
+This proposal is about having a hub for "certified" and reusable actions and
+workflows.  It will run on `hub.tinkerbell.org` and I pictured it as a read only
+registry with a static site in front of it. More about the actual implementation
+later and concrete tools selected moving forward.
 
 ## Goals and not Goals
 
 Goal:
-1. Define goals and requirement for the Action Hub
-2. Explain how we can implement the Action Hub MVP
+1. Define goals and requirement for the Hub
+2. Explain how we can implement the Hub MVP
 
 No-Goal:
 
@@ -50,7 +51,7 @@ Actions look like this: Wipe a disk Partitioning a disk Interact with a BMC to
 restart a server Sending a message on Slack at some point during workflow
 execution
 
-The Action Hub will work as a catalog for Actions first and later for Workflows.
+The Hub will work as a catalog for Actions first and later for Workflows.
 
 The Tinkerbell community wants to stay independent, and we identified the
 [ArtifactHub](https://artifacthub.io/) project sponsored by CNCF (as Tinkerbell
@@ -149,6 +150,57 @@ more control and flexibility between ongoing work (PRs on specific actions) and
 their release cycle (ActionHub artifact).
 
 ## System-context-diagram
+
+A contributor will interface with a traditional repository, currently located in
+[github.com/gianarb/hub](https://github.com/gianarb/hub), it will be moved to its
+permanent location [github.com/tinkerbell/hub](https://github.com/tinkerbell/hub).
+
+I will explain the layout using the command `tree` and commenting various
+directories:
+
+```terminal
+./hub $ tree -L 2
+.
+├── Makefile
+├── README.md
+    # The actions directories contains a subfolder for every aciton, in this
+    # case we have only one called disk-wipe
+├── actions
+│   └── disk-wipe
+    # The manifest related to artifacts live in their own subdirectory
+    # because at some point we will add workflows as well.
+│   └── actions
+    # this contains utility code that empowers validation, and automation for
+    # this repository in form of CLI usually.
+├── cmd
+├── go.mod
+├── go.sum
+    # CLi scripts used for automation purpose
+├── hack
+    # Go code
+├── pkg
+└── shell.nix
+```
+
+The generated manifest are loaded in a separate branch called in our case
+`artifacthub-manifests`.
+
+All the automation is based on GitHub Action, and it will be covered in issues
+and PRs in the hub repository. But there is already a command available that you
+can run via:
+
+```terminal
+go run cmd/gen/main.go generate
+```
+
+It will generate the artifacthub-manifests starting from the `./actions`
+directory.
+
+Another command that we will write is something like `actionhub build
+./actions/disk-wipe` it will build, push and tests single actions using
+[buildkit](https://github.com/moby/buildkit).
+
+All of those workflows will be glued as GitHub Actions workflows.
 
 ## APIs
 
