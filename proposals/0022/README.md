@@ -37,6 +37,8 @@ This proposal addresses the following
 
 Goals
 
+- enable Tinkerbell stack to work in existing DHCP environments
+- make running DHCP via boots optional
 - re-architect existing boots functionality into smaller purposeful services
 - enable Tinkerbell stack to work in existing DHCP environments
 - split out proxyDHCP functionality
@@ -63,6 +65,7 @@ The following are some advantages gained by this re-architecture.
 
 - we will be able to integrate with existing DHCP servers
   - allows the use of both dynamic and static DHCP addresses
+- DHCP via boots can be enable/disabled at runtime for users who need a DHCP server
 - we can focus our efforts around 3 core areas that arguably differentiate the Tinkerbell stack
   - workflow building - tink server
   - installing operating systems (i.e. - running workflows) - tink-worker/[actions](https://docs.tinkerbell.org/actions/action-architecture/)
