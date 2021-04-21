@@ -11,7 +11,7 @@ Re-imagining boots. Boots does way too many things.
 Here is a short list of just what I'm aware of.
 
 - dhcp server
-- pxe (tftp, http) server
+- pxe, tftp, http server
   - custom/bespoke kernel cmdline values: example: eclypsium
   - custom installations
     - custom ipxe
