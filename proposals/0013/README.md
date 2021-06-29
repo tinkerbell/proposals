@@ -1,7 +1,7 @@
 ---
 id: 0013
 title: Self Contained Workflows
-status: ideation
+status: abandoned
 authors: Manny <manny@packet.com>
 ---
 
