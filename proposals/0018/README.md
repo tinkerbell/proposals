@@ -1,7 +1,7 @@
 ---
 id: 0018
 title: Add Instance Object Definition
-status: ideation
+status: abandoned
 authors: Manny <mmendez@equinix.com>
 ---
 
