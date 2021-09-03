@@ -95,7 +95,7 @@ Questions:
 
 #### Status Quo
 
-Keep the [installers](https://github.com/tinkerbell/boots/tree/master/installers) in place, add more as OS that need them come up.
+Keep the [installers](https://github.com/tinkerbell/boots/tree/main/installers) in place, add more as OS that need them come up.
 
 This isn't really an option.
 
