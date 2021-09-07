@@ -175,9 +175,9 @@ $ scripts/new.sh 0042 "My title here"
 
 If you wish to create a new RFD by hand, or understand the process in greater detail, read on.
 
-NOTE: Never at anytime through the process do you push directly to the master
+NOTE: Never at anytime through the process do you push directly to the main
 branch. Once your pull request (PR) with your RFD in your branch is merged into
-master, then the RFD will appear in the master branch.
+main, then the RFD will appear in the master branch.
 
 ### RESERVE A RFD NUMBER
 
@@ -196,7 +196,7 @@ $ git branch -rl *0042
 ```
 
 If you see a branch there (but not a corresponding sub-directory in rfd in
-master), it is possible that the RFD is currently being created; stop and check
+main), it is possible that the RFD is currently being created; stop and check
 with co-workers before proceeding! Once you have verified that the branch
 doesn't exist, create it locally and switch to it:
 
@@ -230,7 +230,7 @@ $ git commit -m '0042: Adding placeholder for RFD <Title>'
 $ git push origin 0042
 ```
 
-After your branch is pushed, the table in the README on the master branch will
+After your branch is pushed, the table in the README on the main branch will
 update automatically with the new RFD. If you ever change the name of the RFD in
 the future, the table will update as well. Whenever information about the state
 of the RFD changes, this updates the table as well. The single source of truth
@@ -275,7 +275,7 @@ $ git push origin 0042
 ### OPEN A PULL REQUEST
 
 Open a pull request on GitHub to merge your branch, in this case 0042 into the
-master branch.
+main branch.
 
 If you move your RFD into discussion but fail to open a pull request, a friendly
 bot will do it for you. If you open a pull request but fail to update the state
@@ -302,7 +302,7 @@ of yours, then do not make the comment.
 ### MERGE THE PULL REQUEST
 
 After there has been time for folks to leave comments, the RFD can be merged
-into master and changed from the discussion state to the published state. The
+into main and changed from the discussion state to the published state. The
 timing is left to your discretion: you decide when to open the pull request, and
 you decide when to merge it. As a guideline, 3-5 business days to comment on
 your RFD before merging seems reasonable -- but circumstances (e.g., time zones,
