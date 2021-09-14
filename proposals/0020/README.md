@@ -1,7 +1,7 @@
 ---
 id: 0020
 title: Template Versioning
-status: ideation
+status: aborted
 authors: Aman Parauliya <aman@infracloud.io>
 ---
 
