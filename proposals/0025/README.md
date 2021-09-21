@@ -1,7 +1,7 @@
 ---
 id: 0025
 title: Deprecate OSIE
-status: discussion
+status: published
 authors: Thomas Stromberg
 ---
 
