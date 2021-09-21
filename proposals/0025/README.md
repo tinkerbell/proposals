@@ -12,16 +12,15 @@ Deprecate and archive the tinkerbell/osie repository
 ## Background
 
 OSIE is the Operating System Installation Environment. OSIE was created by
-Equinix Metal, and predates the Tinkerbell project. It's comprised of 3
-components, which have had their functionality replaced by newer Tinkerbell
-projects:
+Equinix Metal and predates the Tinkerbell project. It contains three primary components,
+all of which have had their functionality replaced within Tinkerbell:
 
 * A live Linux environment for executing workflows ⟶ hook
 * The osie-runner program to execute jobs ⟶ tink-worker
 * The collection of containerized provisioning scripts ⟶ workflows
 
 Tinkerbell only ever made use of the first component, the Linux environment.
-In September 2021, the Tinkerbell sandbox switched it's default Linux environment
+In September 2021, the Tinkerbell sandbox switched its default Linux environment
 from OSIE to Hook, completing the transition of the OSIE components.
 
 This tech debt is visible when you look at the code footprint of the two repositories
@@ -29,8 +28,8 @@ side-by-side:
 
 ![code size chart](chart.png "code size chart")
 
-Even if the model looks very different, OSIE played an important role in inspiring
-Tinkerbell to become what it is today.
+While OSIE's model looks very different from Tinkerbell today, it played a vital
+role in inspiring and informing the current Tinkerbell stack.
 
 ### Goals
 
@@ -44,10 +43,10 @@ Tinkerbell to become what it is today.
 
 ## Proposal
 
-* Update the tinkerbell/osie repository state from `Experimental` to `Deprecated`
-* Commit to only accepting bug fixes for the first 60 days
-* After 60-days, set the tinkerbell/osie repository as archived (read-only)
-* Allow users to continue to maintain their own local OSIE fork ad infinitum
+* Update the tinkerbell/osie repository state from `Experimental` to `Deprecated`.
+* Commit to only accepting bug fixes for the first 60 days.
+* After 60-days, set the tinkerbell/osie repository to `archived` (read-only).
+* Allow users to continue to maintain their own local OSIE fork ad infinitum.
 
 ## Alternatives
 
