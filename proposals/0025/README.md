@@ -11,25 +11,26 @@ Deprecate and archive the tinkerbell/osie repository
 
 ## Background
 
-OSIE is the Operating System Installation Environment. OSIE has been in use by
-Equinix Metal since before Tinkerbell was created. OSIE contains three major
-components, only one of which has been in use by the Tinkerbell OSS community:
+OSIE is the Operating System Installation Environment. OSIE was created by
+Equinix Metal, and predates the Tinkerbell project. It's comprised of 3
+components, which have had their functionality replaced by newer Tinkerbell
+projects:
 
-* A live Linux environment, built with Alpine Linux
-* A Python script named osie-runner (deprecated by tink-worker)
-* A Docker container of installation scripts (deprecated by tinkerbell/workflows)
+* A live Linux environment for executing workflows ⟶ hook
+* The osie-runner program to execute jobs ⟶ tink-worker
+* The collection of containerized provisioning scripts ⟶ workflows
 
-While the latter two components were never actively used by Tinkerbell, the Linux
-environment was the standard in-memory operating system for workflows execution
-until Hook was introduced. In September 2021, the Tinkerbell sandbox switched from
-OSIE to Hook for its live environment, meaning that OSIE is no longer in active use.
+Tinkerbell only ever made use of the first component, the Linux environment.
+In September 2021, the Tinkerbell sandbox switched it's default Linux environment
+from OSIE to Hook, completing the transition of the OSIE components.
 
-As OSIE came into existence previous to Tinkerbell, the repository is primarily
-comprised of code that is irrelevant to the Tinkerbell community.
 This tech debt is visible when you look at the code footprint of the two repositories
 side-by-side:
 
 ![code size chart](chart.png "code size chart")
+
+Even if the model looks very different, OSIE played an important role in inspiring
+Tinkerbell to become what it is today.
 
 ### Goals
 
@@ -44,11 +45,9 @@ side-by-side:
 ## Proposal
 
 * Update the tinkerbell/osie repository state from `Experimental` to `Deprecated`
-* Commit to accepting bug fixes for the first 60 days, but not feature requests
-* After 60-days, archive the tinkerbell/osie repository - which will make it
-  read-only
-* Allow users to continue to maintain their own local unsupported OSIE forks
-  ad infinitum
+* Commit to only accepting bug fixes for the first 60 days
+* After 60-days, set the tinkerbell/osie repository as archived (read-only)
+* Allow users to continue to maintain their own local OSIE fork ad infinitum
 
 ## Alternatives
 
