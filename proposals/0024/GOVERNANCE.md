@@ -102,8 +102,41 @@ The following apply to the repo or the part of the codebase for which one would 
 - Assigned bugs related to area of expertise
 - May get a badge on PR and issue comments
 
+## Inactive members
+
+>This inactive members section follows the guideline defined in the Kubernetes community<sup>[5]</sup>
+
+_Members are continuously active contributors in the community._
+
+A core principle in maintaining a healthy community is encouraging active
+participation. It is inevitable that people's focuses will change over time and
+they are not expected to be actively contributing forever.
+
+However, being a member of the Tinkerbell GitHub organization comes with
+an [elevated set of permissions]. These capabilities should not be used by those
+that are not familiar with the current state of the Tinkerbell project.
+
+Therefore members with an extended period away from the project with no activity
+will be removed from the Tinkerbell Github Organization and will be required to
+go through the org membership process again after re-familiarizing themselves
+with the current state.
+
+### How inactivity is measured
+
+Inactive members are defined as members of the Tinkerbell Organization
+with **no** contributions across any repos within 8 months. This is
+measured by the CNCF [DevStats project].
+
+**Note:** Devstats does not take into account non-code contributions. If a
+non-code contributing member is accidentally removed this way, they may open an
+issue to quickly be re-instated.
+
+After an extended period away from the project with no activity
+those members would need to re-familiarize themselves with the current state
+before being able to contribute effectively.
+
 [1]: https://producingoss.com/html-chunk/consensus-democracy.html
 [2]: https://en.wikipedia.org/wiki/Consensus-seeking_decision-making
 [3]: https://opensource.guide/leadership-and-governance/#what-are-some-of-the-common-governance-structures-for-open-source-projects
 [4]: https://producingoss.com/html-chunk/committers.html
-
+[5]: https://github.com/kubernetes/community/blob/master/community-membership.md
