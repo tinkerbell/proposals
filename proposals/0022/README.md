@@ -1,13 +1,34 @@
 ---
 id: 0022
-title: Re-imagining Boots
+title: Boots Re-Design
 status: ideation
-authors: Jacob Weinstock <jweinstock@equinix.com>
+authors: Jacob Weinstock <jakobweinstock@gmail.com>
 ---
 
 ## Summary
 
-Re-imagining boots. Boots does way too many things.
+Decompose Boots functionality into discrete independent libraries and make Boots import the libraries.
+Why? Boots is burning for clearer design and scope, organization and structure, and flexibility of operation.
+Discrete libraries will provide clarity of scope and allow for Boots to focus on flexibility of operation.
+
+## Goals and not Goals
+
+Goals
+
+- Make Boots codebase easier to reason about, maintain, and contribute to
+- All high-level functionality (DHCP, TFTP, ProxyDHCP, HTTP)  in Boots can be enabled/disabled at runtime
+- Add proxyDHCP functionality
+- Libraries are single-purpose
+- Backward compatibility is maintained with all other existing Tinkerbell services
+- Comparable to dnsmasq in terms of single binary to PXE boot a machine
+
+Non-Goals
+
+- modifying architecture, code or APIs outside of the PXE phase
+
+## Content
+
+Boots does way too many things.
 Here is a short list of just what I'm aware of.
 
 - dhcp server
@@ -27,82 +48,48 @@ Here is a short list of just what I'm aware of.
   - metadata reader - talks to cacher or hegel or tink server
 
 It it also full of many Equinix Metal only specific use-cases.
-This proposal addresses the following
 
-- redesign of existing boots functionality into smaller distinct and purposeful services
-- removal or refactoring of Equinix Metal specific functionality
-- add proxyDHCP support
+![re-design](boots-redesign.png)
 
-## Goals and not Goals
+*__names are for demonstrating the layout only__*
 
-Goals
+The idea is to move discrete functionality currently in Boots into their own libraries and codebases. This discrete functionality is broken down into the following areas:
 
-- enable Tinkerbell stack to work in existing DHCP environments
-- make running DHCP via boots optional
-- re-architect existing boots functionality into smaller purposeful services
-- enable Tinkerbell stack to work in existing DHCP environments
-- split out proxyDHCP functionality
+- DHCP
+  - Handle serving general DHCP requests
+  - RFC  1534, 2131, and 2132
+- proxyDHCP
+  - Handle serving PXE client requests
+  - RFC 4578, PXE specification
+- TFTP
+  - Handle serving iPXE binaries
+  - RFC 1350
+- HTTP(S) dynamic file share
+  - Handle serving iPXE script(s) (the same way auto.ipxe is currently served)
 
-Non-Goals
-
-- modifying architecture, code or APIs outside of the PXE phase
-
-## Content
-
-We can generalize the Tinkerbell machine provisioning lifecycle into 3 distinct phases.
-The following describes the phases and how this proposed architecture fits into the PXE phase.
-
-- Phase 1: **PXE**
-  - **Goal**: PXE boot a machine into a selected operating system installation environment
-- Phase 2: **Operating system installation environment boot**
-  - **Goal**: Have the operating system installation environment ready to receive the go from tink server to install an operating system
-- Phase 3: **Operating system installation**
-  - **Goal**: Install the operating system and run actions defined in the tink workflow
-
-See the architecture diagram [here](./tinkerbell-lifecycle.png).
-
-The following are some advantages gained by this re-architecture.
-
-- we will be able to integrate with existing DHCP servers
-  - allows the use of both dynamic and static DHCP addresses
-- DHCP via boots can be enable/disabled at runtime for users who need a DHCP server
-- we can focus our efforts around 3 core areas that arguably differentiate the Tinkerbell stack
-  - workflow building - tink server
-  - installing operating systems (i.e. - running workflows) - tink-worker/[actions](https://docs.tinkerbell.org/actions/action-architecture/)
-  - rules engine - determining what a machine should be given to pxe
-- simpler and more maintainable code bases as they are more focused and singular in purpose
-- simpler mental model for the provisioning lifecycle of a machine
-
-The following functionality from existing boots will not exist in the PXE phase of the proposed architecture.
-These are concerns of later phases so they will not be addressed.
-
-- syslog server
-- hardware discovery ([/hardware-components](https://github.com/tinkerbell/boots/blob/70440b27cb1559770ef485596b9c3a4a253a4dfc/http.go#L82))
-- phone home functionality ([/phone-home](https://github.com/tinkerbell/boots/blob/70440b27cb1559770ef485596b9c3a4a253a4dfc/http.go#L69))
-- failure/event system ([/problem](https://github.com/tinkerbell/boots/blob/70440b27cb1559770ef485596b9c3a4a253a4dfc/http.go#L71))
+Each library will contain a clear and simple API for handling its purpose.
+Each API will contain a default handler, that can be substituted, that should work for at least 80% of the use-cases.
+These libraries should handle implementing the logic for the RFCs they support, not just be building blocks.
+For example, github.com/packethost/dhcp4-go allows us to read, write, and build DHCP packets but does not make sure we implement the DHCP RFCs correctly.
+Boots must be built with a high level of flexibility to be able to enable/disable any functionality and be able to interoperate with any externally available pieces.
+I.e. bring your own DHCP, or your own TFTP, etc.
+This flexibility will allow operators the ability to run all or parts of the PXE stack.
+This will allow interoperability with existing services and provide the ability to address other operational concerns.
+This will enable operators the ability to update and scale single parts of the PXE stack according to operational needs.
+The Syslog receiver server (for receiving Syslog messages) and webhook server functionality (for miscellaneous endpoints like “/phone-home”, install status events, etc) will not be incorporated into Boots.
+Additional external services will be required to handle this functionality.
 
 ## Trade Offs
 
-- more services add to the operational complexity/overhead to deploy and maintain
+- more repositories add to the development overhead to maintain
 - time and effort to make the changes
-
-## Progress
-
-There is demo implementation available [here](https://github.com/jacobweinstock/tinkerbell-next) to show how this could work.
-
-> Note - the demo/POC setup doesn't do anything more than boot into the operating system installation environments.
-> The PXE phase.
-> There will need to be more work done to get a full workflow run.
-
-## System-context-diagram
-
-Again, this proposal is for the `Phase: PXE`.
-The following diagram illustrates where in the Tinkerbell machine provisioning lifecycle this proposal lives.
-
-![machine provisioning lifecycle](./tinkerbell-lifecycle.png#3)
 
 ## Alternatives
 
-One alternative is to overhaul the existing boots code base without breaking the service up.
-We would still need to add proxyDHCP support and make rules more flexible.
-We would still have a service that did way to many things, was a single point of failure, and was limited in its scalability and interoperability.
+- Move all high-level functionality into their own services/binaries/repositories.
+This allows for greater flexibility in operating Boots but adds complexity in its operation as well.
+Multiple binaries will require more documentation to operate and is most likely not as friendly of an experience if just getting started.
+- Refactor Boots to have a more clear structure of separation of concerns.
+Do this along the 6 discrete functional areas described in the Design Details section but don’t break out each functionality into its own library.
+Provide the ability to enable or disable any combination of functionality.
+Code reuse and “DRY” (don't repeat yourself) techniques would need to be carefully considered to avoid convoluting scope, separation of concern, and cognitive load for understanding.
