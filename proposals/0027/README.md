@@ -38,7 +38,7 @@ Goals
 
 Non-Goals
 
-- creating an implementation for a different container runtime
+- creating an implementation for a different container runtime other than docker
 - modifying Tink server
 
 ## Content
