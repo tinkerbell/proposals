@@ -66,6 +66,15 @@ What will be changed?
   - Currently, ephemeral data is a little known and little used feature. It is not documented in the code base. The only document we were able to find lives [here](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data). From the code stand point, this feature feels very unfinished. It is complicated to understand and maintain.
   - With this proposal we will be removing support for ephemeral data. We will poll the community for feedback on this.
 
+System Architecture and Design Philosophy
+
+The following is the system architecture we will be using to write the new Tink worker.
+> Structuring systems into layers and components is a key tool for managing complexity.
+  Using this approach, you can reason about the system in chunks, rather than having to understand every detail of the whole system all at once.
+> -- [Building Secure and Reliable Systems](https://static.googleusercontent.com/media/sre.google/en//static/pdf/building_secure_and_reliable_systems.pdf)
+
+![System Architecture](system_architecture.png)
+
 ## Test plan
 
 The plan is have about >= 85% unit test coverage. We will also test with the [Sandbox](https://github.com/tinkerbell/sandbox) repository.
