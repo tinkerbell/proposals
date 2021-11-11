@@ -34,7 +34,7 @@ Goals
 - support for a single container registry with authentication
 - implement the global timeout (fixes [#198](https://github.com/tinkerbell/tink/issues/198))
 - drop support for [emphemeral data](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data)
-- document 
+- document Tink server interactions points
 
 Non-Goals
 
