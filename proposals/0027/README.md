@@ -35,6 +35,8 @@ Goals
 - implement the global timeout (fixes [#198](https://github.com/tinkerbell/tink/issues/198))
 - drop support for [emphemeral data](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data)
 - document Tink server interactions points
+- learn more about Tinkerbell's internals
+- learn and improve writing Go
 
 Non-Goals
 
