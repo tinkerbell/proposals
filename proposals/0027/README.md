@@ -19,7 +19,7 @@ Tink worker's code base is quite fragile.
 - The Tink workflow status reporting call result is coupled to the worker exit status
 - Lack of documentation and code comments
 
-We proposal a rewrite of the code base to make it easier to understand and modify.
+We propose a rewrite of the code base to make it easier to understand and modify.
 
 ## Goals and not Goals
 
@@ -51,7 +51,9 @@ The core functionality of Tink worker will remain.
 - executing workflows
 - reporting action and workflow status
 
-The CLI flags will remain the same so as to be backward compatible. The rewrite will be a drop in replacement for the existing Tink worker. No changes to Hook should be necessary.
+The CLI flags and environement variables will remain the same so as to be backward compatible.
+The rewrite will be a drop in replacement for the existing Tink worker.
+No changes to Hook should be necessary.
 The majority of the rewrite will focus on structuring the code in such a way to make it easier to understand and modify.
 We will following the existing [Boot design philosophy](https://github.com/tinkerbell/boots/blob/main/docs/DESIGNPHILOSOPHY.md) tenets and incorporate 3 of our own.
 
@@ -59,13 +61,13 @@ We will following the existing [Boot design philosophy](https://github.com/tinke
 - All proposed code changes should strive to be maintainable, manageable, and debug-able -- [ref](https://github.com/ardanlabs/service/wiki#design-philosophy-review-and-culture)
 - All proposed code changes should strive to be the minimal code needed right now to solve the problem -- [ref](https://github.com/ardanlabs/service/wiki#design-philosophy-review-and-culture)
 
-What will be changed?
+What functionality will be changed?
 
 - Container registry support
   - Currently, only a single container registry, that has authentication, is supported.
   - We will continue to support this but also will be adding support for any unauthenticated container registry.
 - Ephemeral data
-  - Currently, ephemeral data is a little known and little used feature. It is not documented in the code base. The only document we were able to find lives [here](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data). From the code stand point, this feature feels very unfinished. It is complicated to understand and maintain.
+  - Currently, ephemeral data is a little known and little used feature. It is not documented in the code base. The only document we were able to find lives [here](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data). From the code stand point, this feature feels very unfinished. It is complicated to understand, modify, and maintain.
   - With this proposal we will be removing support for ephemeral data. We will poll the community for feedback on this.
 
 System Architecture and Design Philosophy
