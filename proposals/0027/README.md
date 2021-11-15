@@ -25,31 +25,31 @@ We propose a rewrite of the code base to make it easier to understand and modify
 
 Goals
 
-- high unit test coverage
-- documented design philosophy
-- easy to understand and modify code
-- build to be able to handle different container runtimes (containerd, kubernetes, etc)
-- backward compatible CLI interaction
-- support for public container registries
-- support for a single container registry with authentication
-- implement the global timeout (fixes [#198](https://github.com/tinkerbell/tink/issues/198))
-- drop support for [emphemeral data](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data)
-- document Tink server interactions points
-- learn more about Tinkerbell's internals
-- learn and improve writing Go
+- High unit test coverage
+- Documented design philosophy
+- Easy to understand and modify code
+- Build to be able to handle different container runtimes (containerd, kubernetes, etc)
+- Backward compatible CLI interaction
+- Support for public container registries
+- Support for a single container registry with authentication
+- Implement the global timeout (fixes [#198](https://github.com/tinkerbell/tink/issues/198))
+- Drop support for [emphemeral data](https://docs.tinkerbell.org/workflows/working-with-workflows/#ephemeral-data)
+- Document Tink server interactions points
+- Learn more about Tinkerbell's internals
+- Learn and improve writing Go
 
 Non-Goals
 
-- creating an implementation for a different container runtime other than docker
-- modifying Tink server
+- Creating an implementation for a different container runtime other than docker
+- Modifying Tink server
 
 ## Content
 
 The core functionality of Tink worker will remain.
 
-- querying Tink server for workflows
-- executing workflows
-- reporting action and workflow status
+- Querying Tink server for workflows
+- Executing workflows
+- Reporting action and workflow status
 
 The CLI flags and environement variables will remain the same so as to be backward compatible.
 The rewrite will be a drop in replacement for the existing Tink worker.
