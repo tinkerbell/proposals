@@ -2,13 +2,12 @@
 id: 0002
 title: Set the mood around releasing code
 status: accepted
-authors: Gianluca Arbezzano <gianarb92@gmail.com>
+authors: Gianluca Arbezzano <gianarb92@gmail.com>, Marques Johansson <mjohansson@equinix.com>
 ---
 
 ## Summary
 
-This proposal sets the expectation about what it means to release code part of
-the Tinkerbell organisation.
+This proposal defines release behaviors for projects in the Tinkerbell organisation.
 
 ## Goals and non-Goals
 
@@ -21,17 +20,17 @@ Goals are:
 
 Non-Goals:
 
-1. How each project should be released and what it should release
-2. Define who own releases
+1. How each project should be released including pipelines and the artifacts to be released
+2. Define who owns and maintains the release processes (CI/CD)
 4. Define a roadmap and how it should be presented to the community.
-5. Support and deprecation lifecycle
+5. Define a support and deprecation lifecycle
 
 ## Content
 
-A release is a tested and stable point in time snapshot from a codebase.
+A release is a tested and stable point in time, a snapshot from a codebase.
 
-We follow the [Semantic Versioning (semver) 2.0.0](https://semver.org).
-Summarized as follows:
+The Tinkerbell project follows [Semantic Versioning (semver) 2.0.0](https://semver.org).
+Semantic Versioning can be summarized as follows:
 
 Given a version number MAJOR.MINOR.PATCH, increment the:
 
@@ -44,78 +43,73 @@ to the MAJOR.MINOR.PATCH format.
 
 ### Schedule
 
-Every subproject should be able to follow its own cadence in terms of how often
-or regularly a new release should be cut, as long as it is documented and
-shared with the community. It is a responsibility for the maintainer to figure
-out a good strategy that better fits their workload, process and codebase.
+Every subproject should follow its own cadence in terms of how often
+or regularly a new release is made. The process must be documented and
+shared with the community. It is the responsibility of the maintainer to figure
+out a good strategy that fits their projects' workload, process and codebase.
 
-`MAJOR` release right now are not even evaluated because the project is too
-young. By definition breaking changes require a new `MAJOR` release, right now
-any of our projects have a release yet, we are working hard to reach `v1.0.0`,
-until there bc breaks are allowed but they will be notified with a proper label
-`bc-break` attached to the pull request.
+`MAJOR` releases should not be considered for young projects. Breaking changes
+are inevitable at this stage and will require a new `MAJOR` release. Tinkerbell
+projects will not reach `v1.0.0` until their APIs have stabilized. Breaking changes
+should in v0 should be indicated with a `bc-break` label attached to the pull request
+and a minor revision increment when released.
 
-A new `MINOR` version for Tinkerbell should be released following a proper
-schedule, right now I think every two months sounds reasonable looking at the
-code written and merged in the last couple of weeks. In this way the
-subprojects will have an intrinsic release target if they want to get their new
-code included in the Tinkerbell release.
+`MINOR` releases for Tinkerbell projects should be frequent to allow for changes
+to be evaluated readily. It is especially important to release frequent minor revisions
+for projects with a v0 major version.
 
-`PATCH` release for Tinkerbell can be done as required by the subprojects
+`PATCH` release for Tinkerbell projects can be done as required by the subprojects
 bug fixes.
 
 ### GitHub release and release website
 
-Git supports tag and GitHub has the concept of a release based on a particular
+Git supports tags and GitHub has the concept of a release based on a particular
 tag.
 
 The artifact generated as part of the release will be published as part of the
-release website, using as a guidance how [HashiCorp
-Release](https://releases.hashicorp.com/) works.
+release website. Out-of-tree release artifacts, including changelogs, are preferable to artifacts and manifest
+contained within Git repositories. For example, <https://github.com/tinkerbell/tink/releases>
+gives a single place where the community can programmatically lookup the details and artifacts
+of all or specific releases.
 
-I like the idea to use a release website vs having to push them as manifest in
-GitHub release because it gives a single place where the community can
-programmatically lookup what they are looking for, without having to look for
-repositories, versions and so on.
-
-As part of the Release page on GitHub we will publish a generated changelog.
+Within the GitHub release pages we will publish a changelog. The changelog format should
+follow <https://keepachangelog.com/en/1.0.0/>.
 
 ### Distribution
 
-Docker containers, binaries, packages such as `deb`, `rpm` requires
+OCI containers, binaries, packages such as `deb`, `rpm` require
 infrastructure such as:
 
-1. A place where the binaries should be archived and easy do be downloaded from
-   (bintray, s3)
-2. Docker containers requires a registry
+1. A place where the binaries should be archived and easily downloaded
+2. OCI containers require a registry
 
 In order to gain consistency across projects and to build familiarity for the
 community we will start as follow:
 
-1. Docker containers will be pushed to `quay.io` under the `tinkerbell`
+1. OCI containers will be pushed to `quay.io` under the `tinkerbell`
    organisation (this is already done)
 2. Binaries and possibly `rpm`, `deb` will be pushed to
-   [Bintray](http://bintray.com/) because it has a friendly open source plan.
+   GitHub releases.
 
 Right now there is not a formal group or structure that manages the Tinkerbell
 community needs in terms of infrastructure, servers and SaaS. We are building
 this group but nothing is formalized yet. As soon as the group will be assembled
 they will be the right target for questions, and requests about bintray, s3,
-Packet devices. In the meantime you can ask on
+Equinix Metal devices. In the meantime you can ask on
 [Slack](https://tinkerbell.org/community/slack/) in the #tinkerbell channel.
 
 ### Architectures and operating systems
 
 The majority of the projects in the tinkerbell organisation right now are in Go,
 it means that it is easy to compile targeting different architectures and
-operating system. We also have an application in JavaScript (portal) and an
-operating system distribution (osie). It is not part of the this proposal to
+operating system. We also have documentation, kernel build specs, and
+operating systems (osie, hook). It is not part of the this proposal to
 decide what Tinkerbell should support or not. But as a direction all the project
 should setup their release workflow in a way that will support:
 
 1. Multiple operating systems and architectures
 2. Static binaries and artifacts
-3. Docker containers
+3. Publishing OCI artifacts to a repository
 
 ### Ownership
 
@@ -141,17 +135,25 @@ are looking for.
 
 ### Tinkerbell
 
-Tinkerbell itself is more like a meta-project that glues all the subprojects it
-depends on. In terms of quality assurance we should have a strong and reliable
-pipeline of E2E tests to guarantee that the new version for the subprojects are
-working fine in integration.
+While Tinkerbell is a collection of projects, the version applied to the `tink` project
+shall reflect the project version.
 
-The subproject Tinkerbell depends on will be pinned as part of the Tinkerbell
-release but their version are a "suggestion". SemVer guarantees that all the
-PATCH release are working as long as the MINOR release is the same.
+Dependent projects like `tinkerbell-docs` and the `sandbox` projects, which
+make the other projects comprehendible and provable, must follow the major and minor
+of the `tink` project to prevent confusion.  These projects should not introduce independent
+resources because the major and minor versions must be pinned to `tink` version. 
+Indepedent resources should be provided in a project that can be versioned independetly.
 
-Tinkerbell `v0.4.0` depends from boot `v1.2.0` every PATCH release for boot
-should work.
+The `tink` project should adopt the latest releases of subprojects promptly.
+A strong and reliable pipeline of E2E tests should guarantee that new versions of subprojects
+are working with fine in a complete integration. Breaking changes to `tink`, should be avoided
+when adopting subproject updates, including major revisions. When breaking changes are required,
+the `tink` project should update its version accordingly. Breaking changes should be introduced
+in prerelease versions for proving, for example `v2.0.0-alpha.1`.
+
+SemVer guarantees that all the PATCH release are working as long as the MINOR release is the same.
+For example, if `tink v0.4.0` depends on `boots v1.2.0`, `tink v0.4.0` should require no code or
+interface changes to be built with and other `v1.2` version of `boots`.
 
 SemVer guarantees that any MINOR release after the one pinned from Tinkerbell
 should work as well.
@@ -165,6 +167,14 @@ boot should work with Tinkerbell `v0.4.0` for example:
 * boot `v1.23.0` should work.
 * boot `v2.0.0` is not guaranteed to work
 
+#### Documentation
+
+The documentation should be versioned and it should follow the same release
+cadence as Tinkerbell. The documentation website should offer the means to browse older
+versions of the documentation. Likewise, users of the Git project should be able to
+switch to the version of the documentation matching a tink release to find suitable
+documentation.
+
 ### Continuous Delivery
 
 All subprojects should have a continuous delivery pipeline in place capable of
@@ -173,20 +183,13 @@ creating a release from a tag.
 There should also be a well documented manual release process for the purposes
 of local testing and troubleshooting.
 
-### Documentation
-
-The documentation should be versioned and it should follow the same release
-cadence as Tinkerbell. It should be possible to jump between old version of the
-Tinkerbell documentation. How many, and how is out of scope for this proposal.
-
 ## System-context-diagram
 
 ## APIs
 
 ## Alternatives
 
-I didn't find a well explained release process that can be reused. Every project
-has its own way even if, at the end the outcome is similar. I am listing here
+Every project has its own approach even when the is similar. I am listing here
 some successful release process I am involved with, please add yours if
 you have because I am sure this proposal will be a glue of the best experiences
 we have as a team:
