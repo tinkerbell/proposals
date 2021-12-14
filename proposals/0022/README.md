@@ -1,7 +1,7 @@
 ---
 id: 0022
 title: Boots Redesign
-status: discussion
+status: published
 authors: Jacob Weinstock <jakobweinstock@gmail.com>
 ---
 
@@ -92,6 +92,12 @@ Test plan:
 
 - more repositories add to the development overhead to maintain
 - time and effort to make the changes
+
+## System Design
+
+The following shows how the design proposal Fits into machine PXE request.
+
+![architecture](architecture.png)
 
 ## Alternatives
 
