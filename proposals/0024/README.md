@@ -1,7 +1,7 @@
 ---
 id: 0024
 title: Community Membership
-status: ideation
+status: published
 authors: Jacob Weinstock
 ---
 
