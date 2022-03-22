@@ -21,4 +21,4 @@ No-Goal:
 
 ## Content
 
-[goverannce](GOVER.md)
+[goverance](GOVERNANCE.md)

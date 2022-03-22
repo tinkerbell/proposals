@@ -13,7 +13,7 @@ contributors. These are for developers who want to contribute to Tinkerbell.
 The current process checks out the `tinkerbell/tink` repository and runs the
 latest versions of the dependencies: osie, tink-server, tink-worker, boots, and
 so on. This is a big problem today because these components are all under active
-development. We can't guarantee that the `master` branches work at all, and even
+development. We can't guarantee that the `main` branches work at all, and even
 less so when integrating the various components. The level of entropy is too
 high.
 
@@ -22,14 +22,14 @@ high.
 Goals:
 
 1. Figure out a way to serve a pinned "version" of Tinkerbell that uses known
-   working dependency revisions in favor of the master branch.
+   working dependency revisions in favor of the main branch.
 2. Use pre-built binaries and Docker images to avoid any need for compiling code
    or building images.
 
 Non-Goals:
 
 1. Tagging project releases. We are not ready for that. [Proposal
-   0002](https://github.com/tinkerbell/proposals/tree/master/0002) has captured
+   0002](https://github.com/tinkerbell/proposals/tree/main/0002) has captured
    our plans for that.
 2. Getting something that will work forever. We need something that works NOW.
 3. Making the contributor experience better.
@@ -96,8 +96,8 @@ will clone `sandbox`.
 
 Yes, they are, for now. There is a bit of friction today, for contributors and
 maintainers, when changing the contents of
-[`tink/deploy`](https://github.com/tinkerbell/tink/tree/master/deploy).  We know
-first time users rely on the `master` branch of `tink` and we don't want their
+[`tink/deploy`](https://github.com/tinkerbell/tink/tree/main/deploy).  We know
+first time users rely on the `main` branch of `tink` and we don't want their
 first experience with Tinkerbell to be a bad one.
 
 My expectation is that as soon as we have proper releases, packages for the

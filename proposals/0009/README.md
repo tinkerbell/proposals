@@ -7,7 +7,7 @@ authors: David McKay <david@rawkode.com>
 
 ## Summary:
 
-The `tink` and `portal` repositories use GitHub Actions to run their automated tests on pull-request and push to master.
+The `tink` and `portal` repositories use GitHub Actions to run their automated tests on pull-request and push to main.
 
 A dedicated GitHub Action runner is provided for the [Tinkerbell organization](https://github.com/tinkerbell), this runner was manually created and provisioned by [Gianluca](https://github.com/gianarb). As this runner wasn't automated from the beginning, should anything happen to the server that requires it to be shutdown or migrated, it would prove timely and cumbersome to rebuild.
 
