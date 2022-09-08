@@ -1,7 +1,7 @@
 ---
 id: 0029
 title: Remove Postgres database support
-status: prediscussion
+status: Approved
 authors: Chris Doherty <chris.doherty4@gmail.com>, Jacob Weinstock <jakobweinstock@gmail.com>
 ---
 
