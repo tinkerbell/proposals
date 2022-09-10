@@ -42,7 +42,7 @@ Members are expected to remain active contributors to the community.
   - Authoring or reviewing PRs on GitHub
   - Filing or commenting on issues on GitHub
   - Contributing to community discussions (e.g. meetings, Slack, email discussion forums)
-- Subscribed to [tinkerbell-contributors@googlegroups.com]
+- Subscribed to <https://lists.cncf.io/g/cncf-tinkerbell-dev>
 - Actively contributing to 1 or more repository.
 - Sponsored by 2 Reviewers. **Note the following requirements for sponsors**:
   - Sponsors must have close interactions with the prospective member - e.g. code/design/proposal review, coordinating on issues, etc.
