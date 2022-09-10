@@ -1,7 +1,7 @@
 ---
 id: 0028
 title: Make hardware data available to Kubernetes workflows
-status: discussion
+status: published
 authors: Srikar Ganti <srikarsganti@gmail.com>, Chris Doherty <chris.doherty4@gmail.com>
 ---
 
