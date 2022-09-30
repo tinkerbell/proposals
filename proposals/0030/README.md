@@ -119,5 +119,11 @@ spec:
 ## Alternatives
 
 * Don't support VLAN tagging.
-* Use DHCP option 132 instead of DHCP option 43.116.
-  * Option 132 was not used as it seemed to be used only for VOIP and as this proposes a very Tinkerbell specific way of doing VLANID, I opted for the vendor options area of DHCP via option 43.
+* Use [DHCP option 132](https://www.iana.org/assignments/bootp-dhcp-parameters/bootp-dhcp-parameters.xhtml) instead of DHCP option 43.116.
+  * It's not clear whether Option 132 (IEEE 802.1Q VLAN ID) is used only for VOIP.
+  * This proposes a very vendor (Tinkerbell) specific way of passing around a VLAN ID, so I opted for the vendor options area of DHCP via option 43.
+  * Here are some examples of both option 132 and option 43 being used. Note, that all examples of option 132 are for VOIP use cases.
+    * https://www.sonicwall.com/support/knowledge-base/how-to-configure-dhcp-option-132-to-get-dhcp-lease-from-vlan/220309054946100/
+    * https://wiki.unify.com/wiki/VLAN_ID_Discovery_over_DHCP#Example_configuration_of_an_Cisco_Switch
+    * https://www.teradici.com/web-help/TER1206003/4.x-4.9/07_HowTo/Config_VLAN.htm
+    * https://wiki.freepbx.org/display/PHON/DHCP+VLAN+Option+132
