@@ -1,0 +1,43 @@
+@startuml Tinkerbell
+
+== VLAN tagging feature Start ==
+
+note left of Machine
+    Machine power on
+end note
+Machine -> Boots: netboot request
+Boots -> Kubernetes: lookup hardware CR object
+Boots -> Machine: netboot response (DHCP option 43.116 = vlan id)
+note left of Machine
+    Tinkerbell iPXE binary loaded
+    virtual interface with VLAN tagging created
+end note
+Machine -> Boots: netboot request
+Boots -> Kubernetes: lookup hardware CR object
+Boots -> Machine: netboot response
+note left of Machine
+    auto.ipxe script loaded
+    kernel argument `vlanid=<vlanid>` added
+end note
+note left of Machine
+    Machine loads Hook OS
+    virtual interface with VLAN tagging created
+end note
+
+== VLAN tagging feature End ==
+
+
+Machine -> Boots: DHCP request
+Boots -> Kubernetes: lookup hardware CR object
+Boots -> Machine: DHCP response
+note left of Machine
+    OS is installed via actions
+end note
+note left of Machine
+    virtual interface with VLAN tagging created via action
+end note
+note left of Machine
+    machine is booted into installed OS
+end note
+
+@enduml
